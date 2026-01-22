@@ -1,0 +1,253 @@
+/* ==================================================
+   GLOBAL RESET & VARIABLES
+   ================================================== */
+
+:root {
+  --bg-main: #0f172a;
+  --bg-panel: rgba(255, 255, 255, 0.08);
+  --bg-sidebar: #020617;
+  --accent: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.45);
+  --text-main: #e5e7eb;
+  --text-muted: #94a3b8;
+  --border-soft: rgba(255, 255, 255, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==================================================
+   BODY
+   ================================================== */
+
+body {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+
+/* ==================================================
+   HEADER (HERO STYLE)
+   ================================================== */
+
+header {
+  padding: 3rem 3rem 2.5rem;
+  background:
+    linear-gradient(135deg, rgba(56,189,248,0.15), transparent),
+    linear-gradient(to right, #020617, #020617);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+header h1 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: #f8fafc;
+}
+
+header p {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 55ch;
+}
+
+/* ==================================================
+   LAYOUT (DO NOT REMOVE)
+   ================================================== */
+
+.layout {
+  display: flex;
+  min-height: calc(100vh - 140px);
+}
+
+/* ==================================================
+   SIDEBAR (COMMAND PANEL)
+   ================================================== */
+
+aside {
+  width: 220px;
+  background-color: var(--bg-sidebar);
+  padding: 1.5rem 1rem;
+  border-right: 1px solid var(--border-soft);
+}
+
+aside nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+aside nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+aside nav a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+aside nav a:hover {
+  color: #f8fafc;
+  background-color: var(--bg-panel);
+  transform: translateX(4px);
+}
+
+aside nav a:hover::before {
+  opacity: 0.35;
+}
+
+/* ==================================================
+   MAIN CONTENT (GLASS PANELS)
+   ================================================== */
+
+main {
+  flex: 1;
+  padding: 3rem;
+  display: grid;
+  gap: 2.5rem;
+}
+
+section {
+  background: var(--bg-panel);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 2rem 2.5rem;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.02),
+    0 25px 50px rgba(0,0,0,0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 35px 70px rgba(0,0,0,0.6);
+}
+
+main h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #f8fafc;
+}
+
+main p {
+  color: var(--text-muted);
+  max-width: 65ch;
+}
+
+/* ==================================================
+   ACCENT ELEMENTS (OPTIONAL)
+   ================================================== */
+
+section::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(to right, var(--accent), transparent);
+  margin-top: 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-soft);
+  background-color: #020617;
+}
+
+/* ==================================================
+   IMAGE STYLING
+   ================================================== */
+
+.me {
+  width: 200px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  box-shadow:
+    0 0 0 6px rgba(56,189,248,0.15),
+    0 0 40px var(--accent-glow);
+  margin-top: 1.5rem;
+}
+
+/* ==================================================
+   MICRO-INTERACTIONS
+   ================================================== */
+
+a {
+  transition: color 0.2s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: #020617;
+}
+
+/* ==================================================
+   SECTION TRANSITIONS & NAVIGATION ANIMATION
+   ================================================== */
+
+/* Smooth scrolling between sections */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base animation state for sections */
+section {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: sectionEnter 0.8s ease forwards;
+}
+
+/* When navigated to via anchor */
+section:target {
+  animation: sectionFocus 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Entrance animation on page load */
+@keyframes sectionEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus animation when switching sections */
+@keyframes sectionFocus {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.01);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
